@@ -1,4 +1,15 @@
+using dashboard.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//Inyeccion del contexto.
+builder.Services.AddDbContext<ClientesContext>(
+    options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSql"));
+    }
+);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -12,6 +23,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseRouting();
